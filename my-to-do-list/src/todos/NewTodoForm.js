@@ -22,6 +22,9 @@ const NewTodoForm = ({ todos, onCreatePressed }) => {
                         onCreatePressed(inputValue);
                         setInputValue('');
                     }
+                    if (isDuplicateText) {
+                        alert('Task already created !!!');
+                    }
                 }}
                 className="new-todo-button">
                 Create Todo
