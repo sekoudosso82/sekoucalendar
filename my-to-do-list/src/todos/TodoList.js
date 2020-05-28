@@ -1,16 +1,20 @@
-import React from 'react';
+import React,{Component} from 'react';
 import { connect } from 'react-redux';
 import NewTodoForm from './NewTodoForm';
 import TodoListItem from './TodoListItem';
 import { removeTodo } from './actions';
 import './TodoList.css';
 
-const TodoList = ({ todos = [], onRemovePressed }) => (
-    <div className="list-wrapper">
-        <NewTodoForm />
-        {todos.map(todo => <TodoListItem todo={todo} onRemovePressed={onRemovePressed} />)}
-    </div>
-);
+class TodoList extends Component (){
+    render(){
+        return(
+            <div className="list-wrapper">
+                <NewTodoForm />
+                {todos.map(todo => <TodoListItem todo={todo} />)}
+            </div>
+        )
+    }
+};
 
 const mapStateToProps = state => ({
     todos: state.todos,

@@ -1,5 +1,8 @@
 import { CREATE_TODO, REMOVE_TODO } from './actions';
+const initialState = {
+    dateToDo: new Date()
 
+}
 export const todos = (state = [], action) => {
     const { type, payload } = action;
 
