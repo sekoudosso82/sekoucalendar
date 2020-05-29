@@ -1,25 +1,38 @@
-import { CREATE_TODO, REMOVE_TODO } from './actions';
+import { CREATE_TODO, REMOVE_TODO, COMPLETE_TODO } from './actions';
 const initialState = {
-    dateToDo: new Date()
-
+    dateToDo: new Date(),
+    title: '',
+    activeToDOList: [],
+    // completToDoList:[]
 }
-export const todos = (state = [], action) => {
-    const { type, payload } = action;
+export const fetchToDoLists = () => dispatch => {
+    fetch('http://localhost:3000/tasks')
+    .then(resp => resp.json())
+    .then(activeToDOList => {
+        dispatch({type: 'FETCH_TO_DO_LIST', payload: { activeToDOList }})
+    })
+} 
+export const todos = (prevState = initialState, action) => {
 
-    switch (type) {
-    case CREATE_TODO: {
-        const { text } = payload;
-        const newTodo = {
-            text,
-            isCompleted: false,
-        };
-        return state.concat(newTodo);
+    switch (action.type) {
+    case 'FETCH_TO_DO_LIST':
+        return {...prevState, activeToDOList: action.payload.activeToDOList}
+    
+    case 'CREATE_TODO': 
+        return {...prevState, activeToDOList: [...prevState.activeToDOList, action.payload]};
+    
+    case COMPLETE_TODO: {
+        return {...prevState, 
+            activeToDOList: prevState.activeToDOList.map(todoList=>{
+                if (todoList.id===action.payload.id){
+                    return action.payload
+                }else { return todoList }
+            })};
     }
     case REMOVE_TODO: {
-        const { text } = payload;
-        return state.filter(todo => todo.text !== text);
+        return {...prevState, activeToDOList: [...prevState.activeToDOList.filter(todoList => todoList.id !== action.payload.id)]};
     }
     default:
-        return state;
+        return prevState;
     }
 }
