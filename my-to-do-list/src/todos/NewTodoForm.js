@@ -1,17 +1,14 @@
-
-// import React from "react";
-
-// import "react-datepicker/dist/react-datepicker.css"; 
 import React, { Component } from 'react';
-// import DatePicker from "react-datepicker";
 import { connect } from 'react-redux';
 import { createTodo } from './actions';
 import './NewTodoForm.css';
 
 class NewTodoForm extends Component {
     state = {
-        dateToDo: '',
+        user_id : 1,
         title: '',
+        status: false,
+        dateToDo: '',
     };
     
      
@@ -20,12 +17,37 @@ class NewTodoForm extends Component {
             [event.target.name]: event.target.value
         })
     };
-    
-    render(){
 
+    handleAddNewTask = () => {
+         
+        let data = {
+            user_id : 1,
+            title: this.state.title,
+            status: false,
+            dateToDo: this.state.dateToDo,
+          } 
+ 
+        console.log('** new task', data)
+        fetch("http://localhost:3000/tasks", {
+            method: 'Post',
+            headers: {"Content-Type": "application/json",
+                      "Accept": "application/json"},    
+            body: JSON.stringify(data)
+        })
+        .then(resp=>resp.json())
+        .then(data => {
+            if(data.errors){
+                alert(data.errors)} 
+            else {
+                alert('Successfully added to watchlist')}
+                this.props.createNewTodo(data)
+        }) 
+    }
+
+    render(){
         return (
             <div >
-                <form className="new-todo-form" >
+                <form className="new-todo-form" onSubmit={this.handleAddNewTask} >
                     <input
                         className="new-todo-input"
                         type="text"
@@ -49,11 +71,9 @@ class NewTodoForm extends Component {
 }
 };
 
+const mdp = dispatch => ({
+    createNewTodo: (data) => dispatch(createTodo(data)),
+});
 
+export default connect(null, mdp)(NewTodoForm);
 
-// const mdp = dispatch => ({
-//     onCreatePressed: (data) => dispatch(createTodo(data)),
-// });
-
-// export default connect(null, mdp)(NewTodoForm);
-export default NewTodoForm

@@ -18,10 +18,11 @@ function todos (prevState = initialState, action)  {
         return {...prevState, activeToDOList: action.payload.activeToDOList}
     
     case 'CREATE_TODO': 
-        
+        console.log('*****  payload create new todo  *****', action.payload)
         return {...prevState, activeToDOList: [...prevState.activeToDOList, action.payload]};
     
     case 'COMPLETE_TODO': {
+        console.log('***** id  payload completed todo  *****', action.payload.id)
         return {...prevState, 
             activeToDOList: prevState.activeToDOList.map(todoList=>{
                 if (todoList.id===action.payload.id){
@@ -29,9 +30,10 @@ function todos (prevState = initialState, action)  {
                 }else { return todoList }
             })};
     }
-    case 'REMOVE_TODO': {
+    case 'REMOVE_TODO': 
+        console.log('***** id payload delete todo  *****', action.payload.id)
         return {...prevState, activeToDOList: [...prevState.activeToDOList.filter(todoList => todoList.id !== action.payload.id)]};
-    }
+    
     default:
         return prevState;
     }

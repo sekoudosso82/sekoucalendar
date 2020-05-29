@@ -3,7 +3,6 @@ const initialState = {
     dateToDo: new Date(),
     title: '',
     activeToDOList: [],
-    // completToDoList:[]
 }
 export const fetchToDoLists = () => dispatch => {
     fetch('http://localhost:3000/tasks')

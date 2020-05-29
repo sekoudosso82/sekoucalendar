@@ -18,7 +18,8 @@ class App extends Component {
             <div className="App">
                 <Switch>
                     <Route path='/todolist' component={TodoList} /> 
-                    <Route path='/complete' component={TodoListComplete} /> 
+                    <Route path='/complete' component={TodoListComplete} />
+                    <Route path='/' component={TodoList} /> 
                 </Switch>
             </div>
 

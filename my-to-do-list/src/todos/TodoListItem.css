@@ -6,6 +6,14 @@
     position: relative;
     box-shadow: 0 4px 8px grey;
 }
+.complete-todo-item-container {
+    background:green;
+    border-radius: 8px;
+    margin-top: 8px;
+    padding: 16px;
+    position: relative;
+    box-shadow: 0 4px 8px grey;
+}
 
 .buttons-container {
     position: absolute;
