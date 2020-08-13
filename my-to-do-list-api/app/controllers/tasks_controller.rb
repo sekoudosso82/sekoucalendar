@@ -1,6 +1,8 @@
 class TasksController < ApplicationController
     def index
-        tasks = Task.all  
+        tasks = Task.all.sort_by{ |task| task.dateToDo}
+        # tasks = Task.all
+ 
         render json: tasks.to_json(
             :include => {
                 :user => {:only => [:username]},
