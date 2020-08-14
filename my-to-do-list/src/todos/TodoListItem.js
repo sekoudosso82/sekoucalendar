@@ -6,7 +6,7 @@ class TodoListItem extends Component {
     handleDelete = () => {
         // console.log('************this.props.id **********', this.props.id)
         let id  = this.props.id;              
-        fetch(`http://localhost:3000/tasks/${id}`, {
+        fetch(`https://sekoudossocalendar.herokuapp.com/tasks/${id}`, {
             method: "DELETE"
         })
         .then(resp => resp.json())
@@ -18,7 +18,7 @@ class TodoListItem extends Component {
     markAsCompleted = (event) => {
         event.preventDefault()
         let id  = this.props.id;              
-        fetch(`http://localhost:3000/tasks/${id}`, {
+        fetch(`https://sekoudossocalendar.herokuapp.com/tasks/${id}`, {
             method: 'PATCH',
             headers: {"Content-Type": "application/json",
                       "Accept": "application/json"},    

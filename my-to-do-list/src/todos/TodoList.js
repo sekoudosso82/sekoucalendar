@@ -11,7 +11,7 @@ class TodoList extends Component{
         this.props.fetchTodos()
       } 
     render(){
-        console.log('****************todolist********',this.props.activeToDOList)
+        console.log("**************** todolist ********",this.props.activeToDOList)
         return(
             <div className="list-wrapper">
                 <NewTodoForm />

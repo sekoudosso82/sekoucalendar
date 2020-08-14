@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { createTodo } from './actions';
+// import { createTodo } from '../mainStore'
+// import { createTodo } from './actions';
 import './NewTodoForm.css';
 
 class NewTodoForm extends Component {
@@ -10,26 +11,23 @@ class NewTodoForm extends Component {
         status: false,
         dateToDo: '',
     };
-    
-     
+  
     handleChange = (event) => {
-        this.setState({
-            [event.target.name]: event.target.value
-        })
+        this.setState({ [event.target.name]: event.target.value })
     };
 
-    handleAddNewTask = () => {
-         
+    handleAddNewTask = (event) => {
+        
+            event.preventDefault()
         let data = {
             user_id : 1,
             title: this.state.title,
-            status: false,
+            status: this.state.status,
             dateToDo: this.state.dateToDo,
-          } 
- 
+        } 
         console.log('** new task', data)
-        fetch("http://localhost:3000/tasks", {
-            method: 'Post',
+        fetch("https://sekoudossocalendar.herokuapp.com/tasks", {
+            method: "POST",
             headers: {"Content-Type": "application/json",
                       "Accept": "application/json"},    
             body: JSON.stringify(data)
@@ -39,9 +37,10 @@ class NewTodoForm extends Component {
             if(data.errors){
                 alert(data.errors)} 
             else {
-                alert('Successfully added to watchlist')}
+                alert('Successfully added')}
                 this.props.createNewTodo(data)
         }) 
+
     }
 
     render(){
@@ -67,12 +66,15 @@ class NewTodoForm extends Component {
                     
                 </form>
             </div>
-    );
-}
+        );
+    }
 };
 
 const mdp = dispatch => ({
-    createNewTodo: (data) => dispatch(createTodo(data)),
+    // createNewTodo: (data) => dispatch(createTodo(data)),
+    createNewTodo: (data) => dispatch({type: "CREATE_TODO", payload:(data)}),
+    // deleteTodo: (data) => dispatch({type: "REMOVE_TODO", payload:(data)}),
+
 });
 
 export default connect(null, mdp)(NewTodoForm);
