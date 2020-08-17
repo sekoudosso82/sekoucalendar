@@ -6,7 +6,7 @@ class TodoListItem extends Component {
     handleDelete = () => {
         // console.log('************this.props.id **********', this.props.id)
         let id  = this.props.id;              
-        fetch(`https://sekoudossocalendar.herokuapp.com/tasks/${id}`, {
+        fetch(`https://sekoudossocalendar.herokuapp.com/api/v1/tasks/${id}`, {
         // fetch(`http://localhost:3000/api/v1/tasks/${id}`, {
 
             method: "DELETE"
@@ -20,7 +20,7 @@ class TodoListItem extends Component {
     markAsCompleted = (event) => {
         event.preventDefault()
         let id  = this.props.id;              
-        fetch(`https://sekoudossocalendar.herokuapp.com/tasks/${id}`, {
+        fetch(`https://sekoudossocalendar.herokuapp.com/api/v1/tasks/${id}`, {
         // fetch(`http://localhost:3000/api/v1/tasks/${id}`, {
 
             method: 'PATCH',

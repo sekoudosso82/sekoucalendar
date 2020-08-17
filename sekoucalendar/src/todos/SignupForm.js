@@ -19,7 +19,7 @@ class SignupForm extends React.Component {
     e.preventDefault()
 
     if (this.state.password === this.state.passwordConfirmation){
-      fetch("https://sekoudossocalendar.herokuapp.com/users", {
+      fetch("https://sekoudossocalendar.herokuapp.com/api/v1/users", {
     // fetch("http://localhost:3000/api/v1/users", {
 
         method: "POST",

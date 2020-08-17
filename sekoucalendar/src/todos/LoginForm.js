@@ -17,7 +17,7 @@ class LoginForm extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
 
-    fetch("https://sekoudossocalendar.herokuapp.com/login", {
+    fetch("https://sekoudossocalendar.herokuapp.com/api/v1/login", {
     // fetch("http://localhost:3000/api/v1/login", {
       method: "POST",
       headers: {

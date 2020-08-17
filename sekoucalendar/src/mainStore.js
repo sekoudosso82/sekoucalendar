@@ -9,7 +9,7 @@ const initialState = {
 }
 
 export const fetchToDoLists = () => dispatch => {
-    fetch('https://sekoudossocalendar.herokuapp.com/tasks')
+    fetch('https://sekoudossocalendar.herokuapp.com/api/v1/tasks')
     // fetch('http://localhost:3000/api/v1/tasks')
     .then(resp => resp.json())
     .then(activeToDOList => {
