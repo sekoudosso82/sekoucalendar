@@ -7,10 +7,9 @@ function UserController(props){
       <button onClick={props.logout}>
         
           {props.currentUser ? 
-            'Hi '+ props.currentUser.username +"-->LOG OUT":
+            "LOG OUT":
             <div>
               <Link to="/login"><button className="login">LOG IN</button></Link>
-              <Link to="/signup"><button className="signup">SIGN UP</button></Link>
             </div>
             
           }

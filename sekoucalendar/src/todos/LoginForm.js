@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 class LoginForm extends React.Component {
 
@@ -16,8 +17,8 @@ class LoginForm extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
 
-    // fetch("https://sekoudossocalendar.herokuapp.com/login", {
-    fetch("http://localhost:3000/login", {
+    fetch("https://sekoudossocalendar.herokuapp.com/login", {
+    // fetch("http://localhost:3000/api/v1/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -27,19 +28,17 @@ class LoginForm extends React.Component {
     })
     .then(res => res.json())
     .then(response => {
-      //set user to state
-      //redirect!
+
       if (response.errors){
         alert(response.errors)
       } else {
-        // this.props.history.push("/items")
         this.props.setUser(response)
       }
     })
-    this.setState({
-        username: "",
-        password: ""
-      })
+    // this.setState({
+    //     username: "",
+    //     password: ""
+    //   })
 
   }
 
@@ -48,24 +47,26 @@ class LoginForm extends React.Component {
       
       
       <form className="formLogin" onSubmit={this.handleSubmit}>
-              <div class="form-row loginDiv">
-                  <div>
+              <div class="form-row loginMainDiv">
+                  <div className="">
                     <h1 className='salut'> Hi {this.state.username}</h1>
-                    <input className="form-control loginInput" placeholder="username" className='formInput' name="username" 
+                    <input className="form-control loginInput formInput" placeholder="username" name="username" 
                       value={this.state.username} 
-                      onChange={this.handleChange}placeholder="username"/>
+                      onChange={this.handleChange} placeholder="username"/>
                     <br></br>
                     <br></br>
                     <br></br>
-                    <input className="form-control loginInput" placeholder="password" className='formInput' name="password" 
-                        value={this.state.password} type="password"  
-                        onChange={this.handleChange}placeholder="password"/>
+                    <input className="form-control loginInput formInput" placeholder="password" name="password" 
+                      value={this.state.password} type="password"  
+                      onChange={this.handleChange} placeholder="password"/>
                   </div>
               <br></br>
-              <div className="loginSubmit">
-                  <button className="formInput" type="submit">Log In</button>
-              </div>
+
               </div>  
+              <div className="loginSubmit">
+                  <button className="loginButton" type="submit">Log In</button>
+              </div>
+              <Link to="/signup"><button className="signup">New User SIGN UP Please</button></Link>
           </form>
     
     )

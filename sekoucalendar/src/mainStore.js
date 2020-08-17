@@ -2,10 +2,15 @@
 const initialState = {
     dateToDo: '',
     title: '',
-    activeToDOList: []
+    activeToDOList: [],
+    username: '',
+    currentUser:''
+
 }
+
 export const fetchToDoLists = () => dispatch => {
     fetch('https://sekoudossocalendar.herokuapp.com/tasks')
+    // fetch('http://localhost:3000/api/v1/tasks')
     .then(resp => resp.json())
     .then(activeToDOList => {
         dispatch({type: 'FETCH_TO_DO_LISTS', payload: { activeToDOList }})
@@ -14,6 +19,12 @@ export const fetchToDoLists = () => dispatch => {
 function mainFunction (prevState=initialState, action)  {
 
     switch (action.type) {
+        case 'LOGIN_USER':
+            return {...prevState, currentUser: action.payload}
+
+        case 'LOGOUT_USER':
+            return {...prevState, currentUser: action.payload}
+            
         case 'FETCH_TO_DO_LISTS':
             return {...prevState, activeToDOList: action.payload.activeToDOList}
         

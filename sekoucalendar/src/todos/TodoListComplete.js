@@ -10,10 +10,14 @@ class TodoListComplete extends Component{
         this.props.fetchTodos()
       } 
     render(){
+        console.log('**************** todolist complete currentUser********',this.props.currentUser)
+
         return(
             <div className="list-wrapper">
                 
-                {this.props.activeToDOList.filter(todoList => todoList.status === true)
+                {this.props.activeToDOList
+                .filter(todoList  => todoList.user_id === this.props.currentUser.id )
+                .filter(todoList  => todoList.status === true )
                 .map(todo => <CompleteTodoListItem {...todo} />)}
             </div>
         )

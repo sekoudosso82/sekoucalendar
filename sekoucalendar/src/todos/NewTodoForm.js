@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import { createTodo } from '../mainStore'
-// import { createTodo } from './actions';
 import './NewTodoForm.css';
 
 class NewTodoForm extends Component {
     state = {
-        user_id : 1,
+        user_id : '',
         title: '',
         status: false,
         dateToDo: '',
@@ -20,13 +18,15 @@ class NewTodoForm extends Component {
         
             event.preventDefault()
         let data = {
-            user_id : 1,
+            user_id :this.props.currentUser.id,
             title: this.state.title,
             status: this.state.status,
             dateToDo: this.state.dateToDo,
         } 
         console.log('** new task', data)
+        // console.log("** new task current user ", this.props)
         fetch("https://sekoudossocalendar.herokuapp.com/tasks", {
+        // fetch("http://localhost:3000/api/v1/tasks", {
             method: "POST",
             headers: {"Content-Type": "application/json",
                       "Accept": "application/json"},    
@@ -40,10 +40,18 @@ class NewTodoForm extends Component {
                 alert('Successfully added')}
                 this.props.createNewTodo(data)
         }) 
+        this.setState({
+            user_id : '',
+            title: '',
+            status: false,
+            dateToDo: '',
+        });
 
     }
 
     render(){
+        console.log("** new task current user ", this.props.currentUser.id)
+
         return (
             <div >
                 <form className="new-todo-form" onSubmit={this.handleAddNewTask} >
@@ -51,17 +59,18 @@ class NewTodoForm extends Component {
                         className="new-todo-input"
                         type="text"
                         name='title'
-                        placeholder="Type your new todo here"
+                        placeholder="new task here"
                         value={this.state.title}
                         onChange={this.handleChange} />
                     <input
                         className="new-todo-date-input"
                         type="date"
                         name='dateToDo'
+                        placeholder="select date"
                         value={this.state.dateToDo}
                         onChange={this.handleChange}/>
                     <button className="new-todo-button" type='Submit' value="Submit" >
-                        Create Todo
+                        submit
                     </button>
                     
                 </form>
@@ -70,10 +79,10 @@ class NewTodoForm extends Component {
     }
 };
 
+
+
 const mdp = dispatch => ({
-    // createNewTodo: (data) => dispatch(createTodo(data)),
     createNewTodo: (data) => dispatch({type: "CREATE_TODO", payload:(data)}),
-    // deleteTodo: (data) => dispatch({type: "REMOVE_TODO", payload:(data)}),
 
 });
 

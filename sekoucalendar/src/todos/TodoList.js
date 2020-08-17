@@ -6,17 +6,23 @@ import TodoListItem from './TodoListItem';
 import './TodoList.css';
 
 class TodoList extends Component{
-    
+
     componentDidMount(){
         this.props.fetchTodos()
       } 
+
     render(){
-        console.log("**************** todolist ********",this.props.activeToDOList)
+        console.log("**************** todolist activeToDOList ********",this.props.activeToDOList)
+
         return(
             <div className="list-wrapper">
-                <NewTodoForm />
-                {this.props.activeToDOList.filter(todoList => todoList.status === false)
+
+                <NewTodoForm currentUser={this.props.currentUser} />
+                {this.props.activeToDOList
+                .filter(todoList  => todoList.user_id === this.props.currentUser.id )
+                .filter(todoList  => todoList.status === false )
                 .map(todo => <TodoListItem {...todo} />)}
+
             </div>
         )
     }
@@ -24,6 +30,7 @@ class TodoList extends Component{
 
 const msp = state => ({
     activeToDOList: state.activeToDOList,
+
 });
 
 const mdp = dispatch => {

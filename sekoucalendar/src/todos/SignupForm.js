@@ -1,4 +1,5 @@
 import React from 'react'
+import '../App.css';
 
 class SignupForm extends React.Component {
 
@@ -18,8 +19,8 @@ class SignupForm extends React.Component {
     e.preventDefault()
 
     if (this.state.password === this.state.passwordConfirmation){
-    //   fetch("https://sekoudossocalendar.herokuapp.com/users", {
-    fetch("http://localhost:3000/users", {
+      fetch("https://sekoudossocalendar.herokuapp.com/users", {
+    // fetch("http://localhost:3000/api/v1/users", {
 
         method: "POST",
         headers: {
@@ -57,7 +58,7 @@ class SignupForm extends React.Component {
       return (
         
         <form className="formLogin" onSubmit={this.handleSubmit}>
-          <div class="form-row loginDiv">
+          <div class="form-row loginMainDiv">
             <div>       
               <h1 className='salut'> Hi {this.state.username}</h1>
               <input className="form-control sellItemDivInput" placeholder="username" name="username" 
